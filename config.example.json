@@ -1,0 +1,16 @@
+{
+  "posts": 20,
+  "media_types": "all",
+  "dir_template": "{handle}",
+  "file_template": "{handle}_{date}_{tweet_id}_{seq}.{ext}",
+  "seq_width": 2,
+  "out_dir": "downloads",
+  "tz_offset": 8,
+  "page_sleep": 1.0,
+  "user_sleep": 2.0,
+  "file_sleep": 0.3,
+  "timeout": 60,
+  "retries": 3,
+  "max_mb": 0,
+  "dry_run": false
+}

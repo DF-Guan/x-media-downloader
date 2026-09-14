@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+downloads/
+.test-out/
+*.log
+cookies.txt
+.env

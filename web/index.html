@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>x-media-grabber</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 16px; }
+  label { display: block; margin: 12px 0 4px; font-weight: 600; }
+  input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+  .row { display: flex; gap: 12px; } .row > div { flex: 1; }
+  button { padding: 10px 18px; margin: 12px 8px 0 0; cursor: pointer; }
+  #log { background: #111; color: #0f0; padding: 12px; height: 220px; overflow-y: auto; white-space: pre-wrap; font-size: 13px; }
+  .hint { color: #666; font-size: 13px; }
+</style>
+</head>
+<body>
+<h2>X 媒体批量下载（demo 页，可并入你的网站）</h2>
+
+<label>账号（每行一个，可单个可多个；或填下方归档源）</label>
+<textarea id="handles" rows="4" placeholder="Anaimiya&#10;waifupupu"></textarea>
+
+<label>归档源 archive.json（可选，与上面二选一；URL 或本地路径由服务端读取）</label>
+<input id="archive" placeholder="https://.../data/archive.json">
+
+<div class="row">
+  <div><label>Top N（配合归档源，0=全部）</label><input id="top" type="number" value="0"></div>
+  <div><label>每账号帖子数（0=有多少下多少）</label><input id="posts" type="number" value="20"></div>
+  <div><label>媒体类型</label><select id="media_types">
+    <option value="all">全部</option><option value="image">仅图片</option><option value="video">仅视频</option>
+  </select></div>
+</div>
+
+<label>文件夹命名模板 <span class="hint" id="dirVars"></span></label>
+<input id="dir_template" value="{handle}">
+<label>文件命名模板 <span class="hint" id="fileVars"></span></label>
+<input id="file_template" value="{handle}_{date}_{tweet_id}_{seq}.{ext}">
+
+<div>
+  <button onclick="validate()">校验命名</button>
+  <button onclick="start(false)">开始下载</button>
+  <button onclick="start(true)">Dry-run（只列清单）</button>
+</div>
+
+<h3>进度</h3>
+<div id="log"></div>
+
+<script>
+const api = (p, opt) => fetch(p, opt).then(r => r.json());
+const log = m => { const el = document.getElementById('log'); el.textContent += m + '\n'; el.scrollTop = el.scrollHeight; };
+
+api('/api/templates').then(t => {
+  document.getElementById('dirVars').textContent = '可用：' + t.dir_vars.join(' ');
+  document.getElementById('fileVars').textContent = '可用：' + t.file_vars.join(' ');
+});
+
+function payload(dry) {
+  return {
+    handles: document.getElementById('handles').value.split('\n').map(s => s.trim()).filter(Boolean),
+    archive: document.getElementById('archive').value.trim() || undefined,
+    top: +document.getElementById('top').value || 0,
+    posts: +document.getElementById('posts').value || 0,
+    media_types: document.getElementById('media_types').value,
+    dir_template: document.getElementById('dir_template').value,
+    file_template: document.getElementById('file_template').value,
+    dry_run: dry
+  };
+}
+async function validate() {
+  const r = await api('/api/validate', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload(false))});
+  log(r.ok ? '命名模板 OK' : '命名错误：' + r.error);
+}
+async function start(dry) {
+  const r = await api('/api/jobs', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload(dry))});
+  if (r.error) return log('启动失败：' + r.error);
+  log(`任务 ${r.id} 启动，共 ${r.total_users} 个账号…`);
+  const timer = setInterval(async () => {
+    const j = await api('/api/jobs/' + r.id);
+    log(`[${j.done_users}/${j.total_users}] ${j.current || ''} ${j.status}`);
+    if (j.status === 'done' || j.status === 'error') {
+      clearInterval(timer);
+      log(j.status === 'done' ? '完成：' + JSON.stringify(j.summary) : '出错：' + j.error);
+    }
+  }, 2000);
+}
+</script>
+</body>
+</html>
