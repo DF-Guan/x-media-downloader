@@ -18,6 +18,17 @@ or a scriptable **X media downloader**? This tool fetches the newest media posts
 (photos + videos, original quality) from any public X account and saves them with
 fully customizable folder / filename templates.
 
+## Screenshot (real run: @elonmusk, no login)
+
+```bash
+python grab.py download --handles elonmusk --posts 5 --media-types image
+# [1/1] @elonmusk: posts=5 ok=4 skip=0 fail=0
+```
+
+<p align="center">
+  <img src="docs/screenshot-elonmusk.jpg" width="640" alt="elonmusk images downloaded by x-media-downloader">
+</p>
+
 ## Features
 
 - 🔓 **No X login** — works through a public mirror API, zero cookies/tokens
