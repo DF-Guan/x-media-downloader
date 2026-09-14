@@ -29,6 +29,29 @@ python grab.py download --handles elonmusk --posts 5 --media-types image
   <img src="docs/screenshot-elonmusk.jpg" width="640" alt="elonmusk images downloaded by x-media-downloader">
 </p>
 
+## Source vs result (verify every file against the original post)
+
+- **来源 SOURCE** = 账号主页 [@elonmusk](https://x.com/elonmusk)（浏览器打开需登录）
+  及其帖子原文。档案卡为实时公开数据：
+
+<p align="center">
+  <img src="docs/source-elonmusk-profile.jpg" width="640" alt="elonmusk profile source card">
+</p>
+
+- **结果 RESULT** = 工具下载到你硬盘的文件，命名含帖子日期（北京时间）。
+  点每行的来源链接即可对照原文（镜像链免登录可看）：
+
+| 结果文件 RESULT | 帖子日期北京 SOURCE date | 来源帖子 SOURCE post |
+|---|---|---|
+| `elonmusk_20260905_2095942363449315620_01.jpg` | 2026-09-05 02:29 | [x.com](https://x.com/elonmusk/status/2095942363449315620) · [mirror](https://fxtwitter.com/elonmusk/status/2095942363449315620) |
+| `elonmusk_20260910_2097866616172421477_01.jpg` | 2026-09-10 09:55 | [x.com](https://x.com/elonmusk/status/2097866616172421477) · [mirror](https://fxtwitter.com/elonmusk/status/2097866616172421477) |
+| `elonmusk_20260912_2098789559093858580_01.jpg` | 2026-09-12 23:03 | [x.com](https://x.com/elonmusk/status/2098789559093858580) · [mirror](https://fxtwitter.com/elonmusk/status/2098789559093858580) |
+| `elonmusk_20260914_2099295901529391177_01.jpg` | 2026-09-14 08:35 | [x.com](https://x.com/elonmusk/status/2099295901529391177) · [mirror](https://fxtwitter.com/elonmusk/status/2099295901529391177) |
+
+<p align="center">
+  <img src="docs/compare-elonmusk.jpg" width="640" alt="source vs result comparison">
+</p>
+
 ## Features
 
 - 🔓 **No X login** — works through a public mirror API, zero cookies/tokens
