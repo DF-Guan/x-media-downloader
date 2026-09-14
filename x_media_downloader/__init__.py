@@ -1,4 +1,4 @@
-"""x-media-grabber: download public X media posts without login.
+"""x-media-downloader: download public X media posts without login.
 
 Core library has zero third-party dependencies (stdlib only).
 """

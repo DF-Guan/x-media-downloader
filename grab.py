@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""x-media-grabber CLI. Zero third-party dependencies.
+"""x-media-downloader CLI. Zero third-party dependencies.
 
 Examples:
   python grab.py download --handles Anaimiya,waifupupu --posts 20
@@ -14,9 +14,9 @@ import json
 import sys
 from pathlib import Path
 
-from x_media_grabber.jobs import run
-from x_media_grabber.naming import DIR_VARS, FILE_VARS, validate_template
-from x_media_grabber.sources import load_handles
+from x_media_downloader.jobs import run
+from x_media_downloader.naming import DIR_VARS, FILE_VARS, validate_template
+from x_media_downloader.sources import load_handles
 
 DEFAULTS = {
     "posts": 20,

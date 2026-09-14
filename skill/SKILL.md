@@ -1,9 +1,9 @@
 ---
-name: x-media-grabber
+name: x-media-downloader
 description: Download public X (Twitter) media posts without login - single account, TopN from archive.json, or full lists. Editable-but-constrained folder/file naming templates. Use when the user wants to batch-download images/videos from X creators.
 ---
 
-# x-media-grabber
+# x-media-downloader
 
 Batch-download public X creator media (images + videos) with **no X login required**
 (via FxTwitter mirror API). Single account, TopN, or full-archive runs.

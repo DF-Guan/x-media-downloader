@@ -1,4 +1,4 @@
-"""Local HTTP API for x-media-grabber (stdlib only).
+"""Local HTTP API for x-media-downloader (stdlib only).
 
 Designed so a webpage can drive the tool:
   GET  /                        -> demo page (web/index.html)
@@ -19,9 +19,9 @@ import urllib.parse
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from x_media_grabber.jobs import run
-from x_media_grabber.naming import DIR_VARS, FILE_VARS, validate_template
-from x_media_grabber.sources import load_handles
+from x_media_downloader.jobs import run
+from x_media_downloader.naming import DIR_VARS, FILE_VARS, validate_template
+from x_media_downloader.sources import load_handles
 
 ROOT = Path(__file__).resolve().parent
 WEB_DIR = ROOT / "web"
@@ -40,7 +40,7 @@ def _new_id():
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "XMediaGrabber/0.1"
+    server_version = "XMediaDownloader/0.1"
 
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -186,7 +186,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def serve(port=8765):
     srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"x-media-grabber API + demo page at http://127.0.0.1:{port}")
+    print(f"x-media-downloader API + demo page at http://127.0.0.1:{port}")
     try:
         srv.serve_forever()
     except KeyboardInterrupt:
