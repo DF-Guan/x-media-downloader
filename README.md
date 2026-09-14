@@ -18,28 +18,24 @@ or a scriptable **X media downloader**? This tool fetches the newest media posts
 (photos + videos, original quality) from any public X account and saves them with
 fully customizable folder / filename templates.
 
-## Screenshot (real run: @elonmusk, no login)
+## Demo: real run on @elonmusk (no login)
 
 ```bash
 python grab.py download --handles elonmusk --posts 5 --media-types image
 # [1/1] @elonmusk: posts=5 ok=4 skip=0 fail=0
 ```
 
-<p align="center">
-  <img src="docs/screenshot-elonmusk.jpg" width="640" alt="elonmusk images downloaded by x-media-downloader">
-</p>
+### 1. 账号 SOURCE account — [@elonmusk](https://x.com/elonmusk)（浏览器打开需登录）
 
-## Source vs result (verify every file against the original post)
-
-- **来源 SOURCE** = 账号主页 [@elonmusk](https://x.com/elonmusk)（浏览器打开需登录）
-  及其帖子原文。档案卡为实时公开数据：
+档案卡为实时公开数据：
 
 <p align="center">
   <img src="docs/source-elonmusk-profile.jpg" width="640" alt="elonmusk profile source card">
 </p>
 
-- **结果 RESULT** = 工具下载到你硬盘的文件，命名含帖子日期（北京时间）。
-  点每行的来源链接即可对照原文（镜像链免登录可看）：
+### 2. 帖子内容 RESULT posts — 下载到硬盘的文件，命名含帖子日期（北京时间）
+
+点每行的来源链接即可对照原文（镜像链免登录可看）：
 
 | 结果文件 RESULT | 帖子日期北京 SOURCE date | 来源帖子 SOURCE post |
 |---|---|---|
